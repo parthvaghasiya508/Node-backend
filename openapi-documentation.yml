@@ -1,0 +1,137 @@
+openapi: '3.0.2'
+info:
+  title: 'User Management'
+  version: '1.0'
+servers:
+  - url: http://localhost:3000/
+
+components:
+  schemas:
+    User:
+      # Definition of a "User" object
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        phoneNumber:
+          type: string
+
+      example:
+        name: "John"
+        phoneNumber: "7876767877"
+
+
+paths:
+  /users:
+    get:
+      # GET /users
+      # GET /users?id=1
+      description: 'Return all the users available as well as query params'
+      parameters:
+        - name: id
+          in: query
+          description: 'Id of the user for fetch'
+          required: false
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: 'name of the user for fetch'
+          required: false
+          schema:
+            type: string
+        - name: phoneNumber
+          in: query
+          description: 'phoneNumber of the user for fetch'
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'List with all the users'
+          content:
+            'application/json':
+              schema:
+                # Returns an array of "User" elements
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      # POST /users
+      description: 'Add a new user'
+      requestBody:
+        description: Details of the user to add
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: 'User successfully added.' 
+        '400':
+          description: 'Bad request'
+    patch:
+      # PATCH /users?id=1
+      description: 'Update the details about the user with the specified query params'
+      parameters:
+        - name: id
+          in: query
+          description: 'Id of the user to modify'
+          required: false
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: 'name of the user to modify'
+          required: false
+          schema:
+            type: string
+        - name: phoneNumber
+          in: query
+          description: 'phoneNumber of the user to modify'
+          required: false
+          schema:
+            type: string
+
+      requestBody:
+        description: New details of the user to be modified
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/User'    
+      responses:
+        '200':
+          description: 'User successfully updated'
+        '400':
+          description: 'Bad request'
+
+    delete:
+      # DELETE /users?id=1
+      description: 'Delete the user with the specified query params'
+      parameters:
+        - name: id
+          in: query
+          description: 'Id of the user to delete'
+          required: false
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: 'name of the user to delete'
+          required: false
+          schema:
+            type: string
+        - name: phoneNumber
+          in: query
+          description: 'phoneNumber of the user to delete'
+          required: false
+          schema:
+            type: string
+  
+      responses:
+        '200':
+          description: 'User successfully deleted'
+        '400':
+          description: 'Bad request'

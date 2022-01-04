@@ -1,0 +1,28 @@
+GET http://localhost:3000/users  HTTP/1.1
+content-type: application/json
+
+GET http://localhost:3000/users?id=2&phoneNumber=787887868  HTTP/1.1
+content-type: application/json
+
+
+
+POST http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Harsh",
+    "phoneNumber":"7876678" ,
+    "city":"surat"
+}
+
+
+PATCH  http://localhost:3000/users?phoneNumber=7876678 HTTP/1.1
+content-type: application/json
+
+{
+    "phoneNumber":"666666",
+    "name": "Same"
+}
+
+DELETE  http://localhost:3000/users?phoneNumber=989898989&id=5 HTTP/1.1
+content-type: application/json
